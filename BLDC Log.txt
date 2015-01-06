@@ -1,0 +1,29 @@
+//2014-05-20
+1. Found that PWM too thin, if code in ISR in different order, affect the PWM
+
+//2014-05-23
+1. Using bytes access the GPIO registor solved the order problem in PWM.
+2. Notice that the motor should have a fixed timing, so, the efficiency for CW and CCW is a bit different.
+3. Trying to impletment PLL to fix the timing issue.
+4. Need further testing about the timing offset for two direction.
+
+//2014-05-26
+1. Wanna test for real mechanical timing for the motor (pending)
+2. Now using 120 angle
+3. Ku = 3.4, Pu = 0.3255 //with 20PWM
+4. Ku = 0.7, Pu = 0.4137 //with 80PWM
+5. using: P = 0.6Ku, I = 2*P/Pu, D = P*Pu/8 (0.55) (smoothing ratio: 0.0002)
+6. Success with low speed
+7. Success with manual control
+8. Final: P = 0.4, I = 1.9, D = 0.59, Ratio = 0.0002
+
+//2014-05-27
+1. D-Coeff is seperated to a smoothing function
+2. Tuned PID after adjustment
+3. Final: P = 0.3, I = 1.0, D = 3.0, DRatio = 0.0001, PIDRatio = 0.2
+4. Updated D calculation
+5. Final: P = 0.35, I = 1.2, D = 0.6, MaxHold = 720000, DRatio = 0.01, PIDRatio = 0.05
+
+//2014-05-30
+1. SPI duplex success
+2. Having software restart feature
